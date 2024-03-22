@@ -3,11 +3,10 @@ package ztw.books.spring_rest_api.Book;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ztw.books.spring_rest_api.Book.dto.BookDTO;
+import ztw.books.spring_rest_api.Book.request.CreateBookRequest;
+import ztw.books.spring_rest_api.Book.request.UpdateBookRequest;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,5 +22,20 @@ public class BookController {
     @GetMapping("/{id}")
     public ResponseEntity<BookDTO> getBook(@PathVariable Long id){
         return new ResponseEntity<>(bookService.getBook(id),HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<BookDTO> createBook(@RequestBody CreateBookRequest request){
+        return new ResponseEntity<>(bookService.createBook(request),HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<BookDTO> createBook(@RequestBody UpdateBookRequest request, @PathVariable Long id){
+        return new ResponseEntity<>(bookService.updateBook(request,id),HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}")
+    public void createBook(@PathVariable Long id){
+        bookService.deleteBook(id);
     }
 }
