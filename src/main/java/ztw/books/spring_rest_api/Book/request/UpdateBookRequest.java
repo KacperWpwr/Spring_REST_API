@@ -1,6 +1,7 @@
 package ztw.books.spring_rest_api.Book.request;
 
 import jakarta.validation.constraints.Min;
+import ztw.books.spring_rest_api.Book.enitity.Author;
 
-public record UpdateBookRequest(String title, String author, @Min(0) int pages) {
+public record UpdateBookRequest(String title, Author author, @Min(0) int pages) {
 }

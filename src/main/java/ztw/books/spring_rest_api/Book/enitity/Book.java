@@ -21,8 +21,10 @@ public class Book {
     @Id
     private long id;
     private String title;
-    private String author;
+//    private String author;
     private int pages;
 
-
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private Author author;
 }
