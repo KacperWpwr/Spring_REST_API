@@ -1,6 +1,7 @@
-package ztw.books.spring_rest_api.Book;
+package ztw.books.spring_rest_api.Book.service;
 
 import ztw.books.spring_rest_api.Book.dto.BookDTO;
+import ztw.books.spring_rest_api.Book.enitity.Book;
 import ztw.books.spring_rest_api.Book.request.CreateBookRequest;
 import ztw.books.spring_rest_api.Book.request.UpdateBookRequest;
 

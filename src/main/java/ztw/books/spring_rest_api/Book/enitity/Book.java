@@ -1,4 +1,4 @@
-package ztw.books.spring_rest_api.Book;
+package ztw.books.spring_rest_api.Book.enitity;
 
 import jakarta.persistence.*;
 import lombok.*;

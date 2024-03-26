@@ -1,10 +1,12 @@
-package ztw.books.spring_rest_api.Book;
+package ztw.books.spring_rest_api.Book.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import ztw.books.spring_rest_api.Book.repository.IBookRepository;
 import ztw.books.spring_rest_api.Book.dto.BookDTO;
+import ztw.books.spring_rest_api.Book.enitity.Book;
 import ztw.books.spring_rest_api.Book.request.CreateBookRequest;
 import ztw.books.spring_rest_api.Book.request.UpdateBookRequest;
 

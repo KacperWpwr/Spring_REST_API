@@ -1,4 +1,4 @@
-package ztw.books.spring_rest_api.Book;
+package ztw.books.spring_rest_api.Book.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ztw.books.spring_rest_api.Book.dto.BookDTO;
 import ztw.books.spring_rest_api.Book.request.CreateBookRequest;
 import ztw.books.spring_rest_api.Book.request.UpdateBookRequest;
+import ztw.books.spring_rest_api.Book.service.IBookService;
 
 @RestController
 @RequiredArgsConstructor

@@ -1,10 +1,11 @@
-package ztw.books.spring_rest_api.Book;
+package ztw.books.spring_rest_api.Book.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.bind.annotation.RequestMapping;
+import ztw.books.spring_rest_api.Book.enitity.Book;
+import ztw.books.spring_rest_api.Book.repository.IBookRepository;
 
 import java.util.List;
 
