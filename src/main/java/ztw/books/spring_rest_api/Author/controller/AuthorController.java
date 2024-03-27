@@ -16,12 +16,12 @@ public class AuthorController {
     private final IAuthorService authorService;
 
     @GetMapping
-    public ResponseEntity<Object> getAuthors(){
+    public ResponseEntity<Object> getAuthors() {
         return new ResponseEntity<>(authorService.getAuthors(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AuthorDTO> getBook(@PathVariable Long id){
+    public ResponseEntity<AuthorDTO> getAuthor(@PathVariable Long id){
         return new ResponseEntity<>(authorService.getAuthor(id),HttpStatus.OK);
     }
 
@@ -36,7 +36,7 @@ public class AuthorController {
     }*/
 
     @DeleteMapping("/{id}")
-    public void createAuthor(@PathVariable Long id) {
+    public void deleteAuthor(@PathVariable Long id) {
         authorService.deleteAuthor(id);
     }
 }
