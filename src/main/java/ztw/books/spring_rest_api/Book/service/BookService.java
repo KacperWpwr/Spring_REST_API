@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import ztw.books.spring_rest_api.Author.entity.Author;
+import ztw.books.spring_rest_api.Author.service.IAuthorService;
 import ztw.books.spring_rest_api.Book.repository.IBookRepository;
 import ztw.books.spring_rest_api.Book.dto.BookDTO;
 import ztw.books.spring_rest_api.Book.enitity.Book;
@@ -17,6 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BookService implements IBookService{
     private final IBookRepository bookRepository;
+    private final IAuthorService authorService;
 
 
 
@@ -41,7 +44,9 @@ public class BookService implements IBookService{
 
     @Override
     public BookDTO createBook(CreateBookRequest request) {
-        Book book = Book.builder().title(request.title()).author(request.author()).pages(request.pages()).build();
+        Author author = authorService.findAuthor(request.author_id())
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Book book = Book.builder().title(request.title()).author(author).pages(request.pages()).build();
 
         book = bookRepository.save(book);
 
@@ -55,8 +60,10 @@ public class BookService implements IBookService{
         if(book == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+        Author author = authorService.findAuthor(request.author_id())
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        book.setAuthor(request.author());
+        book.setAuthor(author);
         book.setTitle(request.title());
         book.setPages(request.pages());
 

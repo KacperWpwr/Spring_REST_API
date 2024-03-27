@@ -10,6 +10,7 @@ import ztw.books.spring_rest_api.Book.request.CreateBookRequest;
 import ztw.books.spring_rest_api.Book.request.UpdateBookRequest;
 
 import java.util.Collection;
+import java.util.Optional;
 
 public interface IAuthorService {
 
@@ -20,4 +21,7 @@ public interface IAuthorService {
     AuthorDTO createAuthor(CreateAuthorRequest request);
 
     void deleteAuthor(Long id);
+    AuthorDTO updateAuthor(UpdateAuthorRequest request, Long id);
+
+    Optional<Author> findAuthor(long id);
 }

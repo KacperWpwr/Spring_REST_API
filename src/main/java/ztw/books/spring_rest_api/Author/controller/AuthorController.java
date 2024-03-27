@@ -30,10 +30,10 @@ public class AuthorController {
         return new ResponseEntity<>(authorService.createAuthor(request),HttpStatus.CREATED);
     }
 
-    /*@PutMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<AuthorDTO> createAuthor(@RequestBody UpdateAuthorRequest request, @PathVariable Long id){
         return new ResponseEntity<>(authorService.updateAuthor(request,id),HttpStatus.CREATED);
-    }*/
+    }
 
     @DeleteMapping("/{id}")
     public void deleteAuthor(@PathVariable Long id) {

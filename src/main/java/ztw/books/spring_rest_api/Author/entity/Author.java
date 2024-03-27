@@ -29,15 +29,18 @@ public class Author {
     private String lastName;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.REMOVE)
-    @JsonIdentityReference(alwaysAsId = true)
+//    @JsonIdentityReference(alwaysAsId = true)
     private List<Book> books = new ArrayList<>();
 
     @JsonIgnore // to prevent books list in Author
     public List<Book> getBooks() {
-        return books;
+        return books== null? new ArrayList<>() : books;
     }
 
     public List<Long> getBookIds() {
-        return books.stream().map(Book::getId).collect(Collectors.toList()); // return list of books' ids instead
+        if(books != null){
+            return books.stream().map(Book::getId).collect(Collectors.toList()); // return list of books' ids instead
+        }
+        return new ArrayList<>();
     }
 }

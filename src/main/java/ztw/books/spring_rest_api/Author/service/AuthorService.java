@@ -2,14 +2,17 @@ package ztw.books.spring_rest_api.Author.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import ztw.books.spring_rest_api.Author.dto.AuthorDTO;
 import ztw.books.spring_rest_api.Author.entity.Author;
 import ztw.books.spring_rest_api.Author.repository.IAuthorRepository;
 import ztw.books.spring_rest_api.Author.request.CreateAuthorRequest;
+import ztw.books.spring_rest_api.Author.request.UpdateAuthorRequest;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -41,7 +44,7 @@ public class AuthorService implements IAuthorService {
         return new AuthorDTO(author);
     }
 
-    /*@Override
+    @Override
     public AuthorDTO updateAuthor(UpdateAuthorRequest request, Long id) {
         Author author = authorRepository.findById(id).orElse(null);
 
@@ -51,19 +54,26 @@ public class AuthorService implements IAuthorService {
 
         author.setFirstName(request.firstName());
         author.setLastName(request.lastName());
-        List<Book> books = bookRepository.findAllById(request.bookIds());
-        author.setBooks(books);
 
         author = authorRepository.save(author);
 
         return new AuthorDTO(author);
-    }*/
+    }
+
+    @Override
+    public Optional<Author> findAuthor(long id) {
+        return authorRepository.findById(id);
+    }
 
     @Override
     public void deleteAuthor(Long id) {
         Author author = authorRepository.findById(id).orElse(null);
         if (author == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        if( !author.getBookIds().isEmpty()){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
         authorRepository.deleteById(id);
     }
