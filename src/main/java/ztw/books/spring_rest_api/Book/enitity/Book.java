@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import ztw.books.spring_rest_api.Author.entity.Author;
+import ztw.books.spring_rest_api.Rental.entity.Rental;
 
 @Entity
 @NoArgsConstructor
@@ -29,6 +30,9 @@ public class Book {
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "author_id")
     private Author author;
+
+    @OneToOne(mappedBy = "book")
+    private Rental rental;
 
     @JsonIgnore // to prevent author object in Book
     public Author getAuthor() {

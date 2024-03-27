@@ -11,6 +11,7 @@ import ztw.books.spring_rest_api.Reader.request.CreateReaderRequest;
 import ztw.books.spring_rest_api.Reader.service.IReaderService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -60,5 +61,10 @@ public class ReaderService implements IReaderService {
         Reader reader = readerRepository.findById(id).orElseThrow(
                 ()-> new ResponseStatusException(HttpStatusCode.valueOf(404)));
         readerRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<Reader> findReader(long id) {
+        return readerRepository.findById(id);
     }
 }

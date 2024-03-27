@@ -11,6 +11,7 @@ import ztw.books.spring_rest_api.Book.request.CreateBookRequest;
 import ztw.books.spring_rest_api.Book.request.UpdateBookRequest;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,8 +21,10 @@ public class BookService implements IBookService{
 
 
     @Override
-    public Collection<Book> getBooks() {
-        return bookRepository.findAll();
+    public Collection<BookDTO> getBooks() {
+        return bookRepository.findAll().stream()
+                .map(book ->new BookDTO(book.getId(),book.getTitle(),  book.getAuthor(),book.getPages()))
+                .toList();
     }
 
     @Override
@@ -69,6 +72,11 @@ public class BookService implements IBookService{
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         bookRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<Book> findBook(long id){
+        return bookRepository.findById(id);
     }
 
 

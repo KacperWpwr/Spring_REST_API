@@ -13,7 +13,7 @@ public class Reader {
 
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Id
-    private Long Id;
+    private Long id;
     private String name;
     private String lastName;
 
