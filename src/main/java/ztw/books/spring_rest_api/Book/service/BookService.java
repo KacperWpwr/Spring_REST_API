@@ -23,7 +23,7 @@ public class BookService implements IBookService{
     @Override
     public Collection<BookDTO> getBooks() {
         return bookRepository.findAll().stream()
-                .map(book ->new BookDTO(book.getId(),book.getTitle(),  book.getAuthor(),book.getPages()))
+                .map(book ->new BookDTO(book.getId(),book.getTitle(),  book.getAuthorId(),book.getPages()))
                 .toList();
     }
 
@@ -36,7 +36,7 @@ public class BookService implements IBookService{
 
         }
 
-        return new BookDTO(book.getId(), book.getTitle(), book.getAuthor(), book.getPages());
+        return new BookDTO(book.getId(), book.getTitle(), book.getAuthorId(), book.getPages());
     }
 
     @Override
@@ -45,7 +45,7 @@ public class BookService implements IBookService{
 
         book = bookRepository.save(book);
 
-        return new BookDTO(book.getId(), book.getTitle(), book.getAuthor(), book.getPages());
+        return new BookDTO(book.getId(), book.getTitle(), book.getAuthorId(), book.getPages());
     }
 
     @Override
@@ -62,7 +62,7 @@ public class BookService implements IBookService{
 
         book = bookRepository.save(book);
 
-        return new BookDTO(book.getId(), book.getTitle(), book.getAuthor(), book.getPages());
+        return new BookDTO(book.getId(), book.getTitle(), book.getAuthorId(), book.getPages());
     }
 
     @Override
