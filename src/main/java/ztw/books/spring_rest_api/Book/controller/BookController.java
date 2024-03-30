@@ -10,6 +10,7 @@ import ztw.books.spring_rest_api.Book.request.UpdateBookRequest;
 import ztw.books.spring_rest_api.Book.service.IBookService;
 
 @RestController
+@CrossOrigin
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/books")
 public class BookController {

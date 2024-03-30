@@ -11,6 +11,7 @@ import ztw.books.spring_rest_api.Author.service.IAuthorService;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin
 @RequestMapping("/api/v1/authors")
 public class AuthorController {
     private final IAuthorService authorService;
