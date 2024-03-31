@@ -26,13 +26,43 @@ public class ApplicationExampleDataConfiguration {
     @Bean
     public CommandLineRunner fillDatabase() {
         return args -> {
-            Author author1 = Author.builder().firstName("Henryk").lastName("Sienkiewicz").build();
-            Author author2 = Author.builder().firstName("Stanisław").lastName("Reymont").build();
-            Author author3 = Author.builder().firstName("Adam").lastName("Mickiewicz").build();
-            authorRepository.saveAll(List.of(author1, author2, author3));
-            Book book1 = Book.builder().title("Potop").author(author1).pages(936).build();
-            Book book2 = Book.builder().title("Wesele").author(author2).pages(150).build();
-            Book book3 = Book.builder().title("Dziady").author(author3).pages(292).build();
+            List<Author> allAuthors = List.of(
+                    Author.builder().firstName("Henryk").lastName("Sienkiewicz").build(),
+                    Author.builder().firstName("Stanisław").lastName("Reymont").build(),
+                    Author.builder().firstName("Adam").lastName("Mickiewicz").build(),
+                    Author.builder().firstName("Emily").lastName("Dickinson").build(),
+                    Author.builder().firstName("Leo").lastName("Tolstoy").build(),
+                    Author.builder().firstName("Jane").lastName("Austen").build(),
+                    Author.builder().firstName("Fyodor").lastName("Dostoevsky").build(),
+                    Author.builder().firstName("Mark").lastName("Twain").build(),
+                    Author.builder().firstName("Virginia").lastName("Woolf").build(),
+                    Author.builder().firstName("Ernest").lastName("Hemingway").build(),
+                    Author.builder().firstName("Charles").lastName("Dickens").build(),
+                    Author.builder().firstName("Homer").lastName("").build(),
+                    Author.builder().firstName("Gabriel").lastName("García Márquez").build(),
+                    Author.builder().firstName("J.K.").lastName("Rowling").build(),
+                    Author.builder().firstName("Haruki").lastName("Murakami").build(),
+                    Author.builder().firstName("Toni").lastName("Morrison").build(),
+                    Author.builder().firstName("J.R.R.").lastName("Tolkien").build(),
+                    Author.builder().firstName("Stephen").lastName("King").build(),
+                    Author.builder().firstName("Agatha").lastName("Christie").build(),
+                    Author.builder().firstName("Oscar").lastName("Wilde").build(),
+                    Author.builder().firstName("George").lastName("Orwell").build(),
+                    Author.builder().firstName("Jorge Luis").lastName("Borges").build(),
+                    Author.builder().firstName("John").lastName("Steinbeck").build(),
+                    Author.builder().firstName("William").lastName("Faulkner").build(),
+                    Author.builder().firstName("Hermann").lastName("Hesse").build(),
+                    Author.builder().firstName("Jules").lastName("Verne").build(),
+                    Author.builder().firstName("Franz").lastName("Kafka").build(),
+                    Author.builder().firstName("Albert").lastName("Camus").build(),
+                    Author.builder().firstName("Anton").lastName("Chekhov").build(),
+                    Author.builder().firstName("Mary").lastName("Shelley").build()
+            );
+
+            authorRepository.saveAll(allAuthors);
+            Book book1 = Book.builder().title("Potop").author(allAuthors.get(0)).pages(936).build();
+            Book book2 = Book.builder().title("Wesele").author(allAuthors.get(1)).pages(150).build();
+            Book book3 = Book.builder().title("Dziady").author(allAuthors.get(2)).pages(292).build();
             bookRepository.saveAll(List.of(book1, book2, book3));
             Reader reader1 = Reader.builder().name("Jan").lastName("Kowalski").build();
             Reader reader2 = Reader.builder().name("Adam").lastName("Nowak").build();
