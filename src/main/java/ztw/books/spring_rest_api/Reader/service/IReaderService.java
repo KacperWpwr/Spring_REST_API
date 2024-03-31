@@ -16,4 +16,7 @@ public interface IReaderService {
 
     Optional<Reader> findReader(long id);
 
+    List<ReaderDTO> getReadersPaginated(int page, int perPage);
+    int getTotalPages(int perPage);
+
 }

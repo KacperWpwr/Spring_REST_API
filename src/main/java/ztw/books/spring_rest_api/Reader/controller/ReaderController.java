@@ -1,5 +1,6 @@
 package ztw.books.spring_rest_api.Reader.controller;
 
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,15 @@ public class ReaderController {
     @GetMapping
     public ResponseEntity<Object> getAllReaders(){
         return new ResponseEntity<>(readerService.getReaders(), HttpStatusCode.valueOf(200));
+    }
+
+    @GetMapping("/pages")
+    public ResponseEntity<Object> getAllReadersPaginated(@PathParam("page") int page, @PathParam("perPage") Integer perPage){
+        return new ResponseEntity<>(readerService.getReadersPaginated(page,perPage), HttpStatusCode.valueOf(200));
+    }
+    @GetMapping("/pages/count")
+    public ResponseEntity<Integer> getTotalReaderPages(@PathParam("perPage") Integer perPage){
+        return new ResponseEntity<>(readerService.getTotalPages(perPage), HttpStatusCode.valueOf(200));
     }
 
     @GetMapping("/{id}")
@@ -39,4 +49,6 @@ public class ReaderController {
     public void deleteReader(@PathVariable long id){
         readerService.deleteReader(id);
     }
+
+
 }

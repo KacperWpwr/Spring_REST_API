@@ -1,5 +1,6 @@
 package ztw.books.spring_rest_api.Book.service;
 
+import ztw.books.spring_rest_api.Author.dto.AuthorDTO;
 import ztw.books.spring_rest_api.Book.dto.BookDTO;
 import ztw.books.spring_rest_api.Book.enitity.Book;
 import ztw.books.spring_rest_api.Book.request.CreateBookRequest;
@@ -16,4 +17,8 @@ public interface IBookService {
 
     void deleteBook(Long id);
     Optional<Book> findBook(long id);
+
+    Collection<BookDTO> getBooksPaginated(int page, int perPage);
+
+    int getTotalPages(int perPage);
 }

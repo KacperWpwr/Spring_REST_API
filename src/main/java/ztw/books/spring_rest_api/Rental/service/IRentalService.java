@@ -13,4 +13,7 @@ public interface IRentalService {
     List<RentalDTO> getAllRentals();
     void returnBook(long bookId);
 
+    List<RentalDTO> getRentalsPaginated(int page, int perPage);
+    int getTotalPages(int perPage);
+
 }

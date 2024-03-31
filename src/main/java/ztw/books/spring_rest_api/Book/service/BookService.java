@@ -1,11 +1,14 @@
 package ztw.books.spring_rest_api.Book.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import ztw.books.spring_rest_api.Author.entity.Author;
 import ztw.books.spring_rest_api.Author.service.IAuthorService;
+import ztw.books.spring_rest_api.Book.mapper.BookMapper;
 import ztw.books.spring_rest_api.Book.repository.IBookRepository;
 import ztw.books.spring_rest_api.Book.dto.BookDTO;
 import ztw.books.spring_rest_api.Book.enitity.Book;
@@ -20,13 +23,14 @@ import java.util.Optional;
 public class BookService implements IBookService{
     private final IBookRepository bookRepository;
     private final IAuthorService authorService;
+    private final BookMapper bookMapper;
 
 
 
     @Override
     public Collection<BookDTO> getBooks() {
         return bookRepository.findAll().stream()
-                .map(book ->new BookDTO(book.getId(),book.getTitle(),  book.getAuthorId(),book.getPages()))
+                .map(bookMapper::mapBookDTO)
                 .toList();
     }
 
@@ -39,7 +43,7 @@ public class BookService implements IBookService{
 
         }
 
-        return new BookDTO(book.getId(), book.getTitle(), book.getAuthorId(), book.getPages());
+        return bookMapper.mapBookDTO(book);
     }
 
     @Override
@@ -50,7 +54,7 @@ public class BookService implements IBookService{
 
         book = bookRepository.save(book);
 
-        return new BookDTO(book.getId(), book.getTitle(), book.getAuthorId(), book.getPages());
+        return bookMapper.mapBookDTO(book);
     }
 
     @Override
@@ -69,7 +73,7 @@ public class BookService implements IBookService{
 
         book = bookRepository.save(book);
 
-        return new BookDTO(book.getId(), book.getTitle(), book.getAuthorId(), book.getPages());
+        return bookMapper.mapBookDTO(book);
     }
 
     @Override
@@ -84,6 +88,18 @@ public class BookService implements IBookService{
     @Override
     public Optional<Book> findBook(long id){
         return bookRepository.findById(id);
+    }
+
+    @Override
+    public Collection<BookDTO> getBooksPaginated(int page, int perPage) {
+        return bookRepository.findAll(PageRequest.of(page,perPage)).stream()
+                .map(bookMapper::mapBookDTO)
+                .toList();
+    }
+
+    @Override
+    public int getTotalPages(int perPage) {
+        return bookRepository.findAll(Pageable.ofSize(perPage)).getTotalPages();
     }
 
 

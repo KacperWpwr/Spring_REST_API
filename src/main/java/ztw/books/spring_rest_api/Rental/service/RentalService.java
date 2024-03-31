@@ -1,6 +1,8 @@
 package ztw.books.spring_rest_api.Rental.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -10,6 +12,7 @@ import ztw.books.spring_rest_api.Reader.entity.Reader;
 import ztw.books.spring_rest_api.Reader.service.IReaderService;
 import ztw.books.spring_rest_api.Rental.dto.RentalDTO;
 import ztw.books.spring_rest_api.Rental.entity.Rental;
+import ztw.books.spring_rest_api.Rental.mapper.RentalMapper;
 import ztw.books.spring_rest_api.Rental.repository.IRentalRepository;
 import ztw.books.spring_rest_api.Rental.requests.RentBookRequest;
 
@@ -21,6 +24,7 @@ public class RentalService implements IRentalService{
     private final IRentalRepository rentalRepository;
     private final IBookService bookService;
     private final IReaderService readerService;
+    private final RentalMapper rentalMapper;
 
 
     @Override
@@ -41,14 +45,14 @@ public class RentalService implements IRentalService{
                 .build();
         rental = rentalRepository.save(rental);
 
-        return new RentalDTO(rental.getId(), rental.getBook().getId(), rental.getReader().getId());
+        return rentalMapper.getRentalDTO(rental);
     }
 
     @Override
     public RentalDTO getRental(long id) {
         Rental rental = rentalRepository.findById(id)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        return new RentalDTO(rental.getId(), rental.getBook().getId(), rental.getReader().getId());
+        return rentalMapper.getRentalDTO(rental);
 
     }
 
@@ -57,14 +61,14 @@ public class RentalService implements IRentalService{
         Rental rental = rentalRepository.findById(id)
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        return new RentalDTO(rental.getId(), rental.getBook().getId(), rental.getReader().getId());
+        return rentalMapper.getRentalDTO(rental);
     }
 
     @Override
     public List<RentalDTO> getRentalsbyReader(long readerId) {
         List<Rental> rentals = rentalRepository.getRentalByReader(readerId);
         return rentals.stream()
-                .map(rental -> new RentalDTO(rental.getId(), rental.getBook().getId(), rental.getReader().getId()))
+                .map(rentalMapper::getRentalDTO)
                 .toList();
     }
 
@@ -72,7 +76,7 @@ public class RentalService implements IRentalService{
     public List<RentalDTO> getAllRentals() {
         List<Rental> rentals = rentalRepository.findAll();
         return rentals.stream()
-                .map(rental -> new RentalDTO(rental.getId(), rental.getBook().getId(), rental.getReader().getId()))
+                .map(rentalMapper::getRentalDTO)
                 .toList();
     }
 
@@ -83,5 +87,16 @@ public class RentalService implements IRentalService{
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         rentalRepository.delete(rental);
+    }
+
+    @Override
+    public List<RentalDTO> getRentalsPaginated(int page, int perPage) {
+        return rentalRepository.findAll(PageRequest.of(page,perPage)).stream()
+                .map(rentalMapper::getRentalDTO).toList();
+    }
+
+    @Override
+    public int getTotalPages(int perPage) {
+        return rentalRepository.findAll(Pageable.ofSize(perPage)).getTotalPages();
     }
 }

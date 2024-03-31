@@ -1,5 +1,6 @@
 package ztw.books.spring_rest_api.Book.controller;
 
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,15 @@ public class BookController {
         return new ResponseEntity<>(bookService.getBooks(), HttpStatus.OK);
     }
 
+    @GetMapping("/pages")
+    public ResponseEntity<Object> getBooksPaginated(@PathParam("page") int page, @PathParam("perPage") Integer perPage){
+        return new ResponseEntity<>(bookService.getBooksPaginated(page,perPage), HttpStatus.OK);
+    }
+
+    @GetMapping("/pages/count")
+    public ResponseEntity<Integer> getBookPageCount(@PathParam("perPage") Integer perPage){
+        return new ResponseEntity<>(bookService.getTotalPages(perPage), HttpStatus.OK);
+    }
     @GetMapping("/{id}")
     public ResponseEntity<BookDTO> getBook(@PathVariable Long id){
         return new ResponseEntity<>(bookService.getBook(id),HttpStatus.OK);

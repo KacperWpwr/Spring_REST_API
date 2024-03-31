@@ -19,6 +19,16 @@ public class RentalController {
     public ResponseEntity<Object> getAllRentals(){
         return new ResponseEntity<>(rentalService.getAllRentals(), HttpStatus.OK);
     }
+
+    @GetMapping("/pages")
+    public ResponseEntity<Object> getAllRentalsPaginated(@PathParam("page") int page, @PathParam("perPage") Integer perPage){
+        return new ResponseEntity<>(rentalService.getRentalsPaginated(page,perPage), HttpStatus.OK);
+    }
+
+    @GetMapping("/pages/count")
+    public ResponseEntity<Object> getTotalRentalPages(@PathParam("perPage") Integer perPage){
+        return new ResponseEntity<>(rentalService.getTotalPages(perPage), HttpStatus.OK);
+    }
     @GetMapping("/reader/{id}")
     public ResponseEntity<Object> getAllRentalsByReader(@PathVariable long id){
         return new ResponseEntity<>(rentalService.getRentalsbyReader(id), HttpStatus.OK);
