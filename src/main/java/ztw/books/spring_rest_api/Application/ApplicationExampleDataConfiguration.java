@@ -58,17 +58,52 @@ public class ApplicationExampleDataConfiguration {
                     Author.builder().firstName("Anton").lastName("Chekhov").build(),
                     Author.builder().firstName("Mary").lastName("Shelley").build()
             );
-
             authorRepository.saveAll(allAuthors);
+
             Book book1 = Book.builder().title("Potop").author(allAuthors.get(0)).pages(936).build();
             Book book2 = Book.builder().title("Wesele").author(allAuthors.get(1)).pages(150).build();
             Book book3 = Book.builder().title("Dziady").author(allAuthors.get(2)).pages(292).build();
             bookRepository.saveAll(List.of(book1, book2, book3));
-            Reader reader1 = Reader.builder().name("Jan").lastName("Kowalski").build();
-            Reader reader2 = Reader.builder().name("Adam").lastName("Nowak").build();
-            readerRepository.saveAll(List.of(reader1, reader2));
-            Rental rental1 = Rental.builder().reader(reader1).book(book1).build();
-            Rental rental2 = Rental.builder().reader(reader2).book(book2).build();
+
+            List<Reader> allReaders = List.of(
+                    Reader.builder().name("Jan").lastName("Kowalski").build(),
+                    Reader.builder().name("Adam").lastName("Nowak").build(),
+                    Reader.builder().name("Anna").lastName("Kowalska").build(),
+                    Reader.builder().name("Ewa").lastName("Nowak").build(),
+                    Reader.builder().name("Piotr").lastName("Kowalski").build(),
+                    Reader.builder().name("Krzysztof").lastName("Nowak").build(),
+                    Reader.builder().name("Karolina").lastName("Kowalska").build(),
+                    Reader.builder().name("Katarzyna").lastName("Nowak").build(),
+                    Reader.builder().name("Michał").lastName("Kowalski").build(),
+                    Reader.builder().name("Tomasz").lastName("Nowak").build(),
+                    Reader.builder().name("Marek").lastName("Wiśniewski").build(),
+                    Reader.builder().name("Monika").lastName("Lewandowska").build(),
+                    Reader.builder().name("Zuzanna").lastName("Zając").build(),
+                    Reader.builder().name("Wojciech").lastName("Mazur").build(),
+                    Reader.builder().name("Agata").lastName("Wójcik").build(),
+                    Reader.builder().name("Marcin").lastName("Kozłowski").build(),
+                    Reader.builder().name("Ola").lastName("Kamińska").build(),
+                    Reader.builder().name("Szymon").lastName("Zieliński").build(),
+                    Reader.builder().name("Lena").lastName("Szymańska").build(),
+                    Reader.builder().name("Igor").lastName("Woźniak").build(),
+                    Reader.builder().name("Julia").lastName("Dąbrowska").build(),
+                    Reader.builder().name("Zofia").lastName("Kozak").build(),
+                    Reader.builder().name("Leon").lastName("Jankowski").build(),
+                    Reader.builder().name("Natalia").lastName("Majewska").build(),
+                    Reader.builder().name("Aleksander").lastName("Olszewski").build(),
+                    Reader.builder().name("Maja").lastName("Baran").build(),
+                    Reader.builder().name("Filip").lastName("Lis").build(),
+                    Reader.builder().name("Aleksandra").lastName("Jaworska").build(),
+                    Reader.builder().name("Nikola").lastName("Malinowska").build(),
+                    Reader.builder().name("Jakub").lastName("Wróbel").build()
+            );
+
+//            Reader reader1 = Reader.builder().name("Jan").lastName("Kowalski").build();
+//            Reader reader2 = Reader.builder().name("Adam").lastName("Nowak").build();
+            readerRepository.saveAll(allReaders);
+
+            Rental rental1 = Rental.builder().reader(allReaders.get(0)).book(book1).build();
+            Rental rental2 = Rental.builder().reader(allReaders.get(1)).book(book2).build();
             rentalRepository.saveAll(List.of(rental1, rental2));
         };
     }
