@@ -15,6 +15,7 @@ import ztw.books.spring_rest_api.Rental.entity.Rental;
 import ztw.books.spring_rest_api.Rental.mapper.RentalMapper;
 import ztw.books.spring_rest_api.Rental.repository.IRentalRepository;
 import ztw.books.spring_rest_api.Rental.requests.RentBookRequest;
+import ztw.books.spring_rest_api.Rental.requests.UpdateRentalRequest;
 
 import java.util.List;
 
@@ -87,6 +88,27 @@ public class RentalService implements IRentalService{
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         rentalRepository.delete(rental);
+    }
+
+    @Override
+    public RentalDTO updateRental(UpdateRentalRequest request, Long id) {
+        Rental rental = rentalRepository.findById(id).orElse(null);
+
+        if(rental == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        Book book = bookService.findBook(request.book_id())
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        Reader reader = readerService.findReader(request.reader_id())
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        rental.setBook(book);
+        rental.setReader(reader);
+
+        rental = rentalRepository.save(rental);
+
+        return rentalMapper.getRentalDTO(rental);
     }
 
     @Override

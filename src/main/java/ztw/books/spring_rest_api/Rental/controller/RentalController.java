@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ztw.books.spring_rest_api.Rental.dto.RentalDTO;
 import ztw.books.spring_rest_api.Rental.requests.RentBookRequest;
+import ztw.books.spring_rest_api.Rental.requests.UpdateRentalRequest;
 import ztw.books.spring_rest_api.Rental.service.IRentalService;
 
 @RestController
@@ -45,6 +46,11 @@ public class RentalController {
     @PostMapping
     public ResponseEntity<RentalDTO> rentBook(@RequestBody RentBookRequest request){
         return new ResponseEntity<>(rentalService.rentBook(request), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<RentalDTO> updateBook(@RequestBody UpdateRentalRequest request, @PathVariable Long id){
+        return new ResponseEntity<>(rentalService.updateRental(request, id), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
