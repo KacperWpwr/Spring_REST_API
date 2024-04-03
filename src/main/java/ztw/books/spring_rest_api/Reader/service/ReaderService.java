@@ -3,6 +3,7 @@ package ztw.books.spring_rest_api.Reader.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -73,7 +74,7 @@ public class ReaderService implements IReaderService {
 
     @Override
     public List<ReaderDTO> getReadersPaginated(int page, int perPage) {
-        return readerRepository.findAll(PageRequest.of(page,perPage)).stream().map(readerMapper::getReaderDTO).toList();
+        return readerRepository.findAll(PageRequest.of(page,perPage, Sort.by("id"))).stream().map(readerMapper::getReaderDTO).toList();
 
     }
 

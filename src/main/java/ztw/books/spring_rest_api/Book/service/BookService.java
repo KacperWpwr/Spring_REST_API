@@ -3,6 +3,7 @@ package ztw.books.spring_rest_api.Book.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -92,7 +93,7 @@ public class BookService implements IBookService{
 
     @Override
     public Collection<BookDTO> getBooksPaginated(int page, int perPage) {
-        return bookRepository.findAll(PageRequest.of(page,perPage)).stream()
+        return bookRepository.findAll(PageRequest.of(page,perPage, Sort.by("id"))).stream()
                 .map(bookMapper::mapBookDTO)
                 .toList();
     }

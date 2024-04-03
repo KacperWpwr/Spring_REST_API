@@ -3,6 +3,7 @@ package ztw.books.spring_rest_api.Rental.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -114,7 +115,7 @@ public class RentalService implements IRentalService{
 
     @Override
     public List<RentalDTO> getRentalsPaginated(int page, int perPage) {
-        return rentalRepository.findAll(PageRequest.of(page,perPage)).stream()
+        return rentalRepository.findAll(PageRequest.of(page,perPage, Sort.by("id"))).stream()
                 .map(rentalMapper::getRentalDTO).toList();
     }
 

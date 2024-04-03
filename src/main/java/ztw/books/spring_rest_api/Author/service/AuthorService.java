@@ -3,6 +3,7 @@ package ztw.books.spring_rest_api.Author.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -69,7 +70,7 @@ public class AuthorService implements IAuthorService {
 
     @Override
     public Collection<AuthorDTO> getAuthorsPaginated(int page, int perPage) {
-        return authorRepository.findAll(PageRequest.of(page,perPage)).stream().map(AuthorDTO::new).toList();
+        return authorRepository.findAll(PageRequest.of(page,perPage, Sort.by("id"))).stream().map(AuthorDTO::new).toList();
     }
 
     @Override
