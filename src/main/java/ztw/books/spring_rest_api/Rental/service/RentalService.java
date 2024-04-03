@@ -97,6 +97,7 @@ public class RentalService implements IRentalService{
         if(rental == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+
         Book book = bookService.findBook(request.book_id())
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
 
